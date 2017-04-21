@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wk.dz.dao.ActContentOptMapper">
+	 <resultMap id="baseResult" type="com.wk.dz.entity.ActContentOpt">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="contentId" column="content_id" jdbcType="INTEGER" />
+		<result property="optInfo" column="opt_info" jdbcType="VARCHAR" />
+		<result property="optType" column="opt_type" jdbcType="INTEGER" />
+		<result property="tsp" column="tsp" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="getOptInfoByEntity" resultMap="baseResult"
+		parameterType="com.wk.dz.entity.ActContentOpt">
+		select
+		id,content_id,opt_info,opt_type,tsp
+		from act_user
+		<where>
+			<if test="id!=null">
+				id=#{id}
+			</if>
+			<if test="optType!=null">
+				and opt_type=#{optType}
+			</if>
+			<if test="contentId!=null">
+				and content_id=#{contentId}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertOptInfo" parameterType="com.wk.dz.entity.ActContentOpt"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		act_user(content_id,opt_info,opt_type,tsp)
+		values(#{contentId},#{optInfo},#{optType},#{tsp})
+
+	</insert>
+	
+</mapper>

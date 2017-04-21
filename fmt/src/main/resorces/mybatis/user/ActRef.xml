@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wk.dz.dao.ActRefMapper">
+	 <resultMap id="baseResult" type="com.wk.dz.entity.ActRef">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="contentId" column="content_id" jdbcType="INTEGER" />
+		<result property="contentOptId" column="content_opt_id" jdbcType="INTEGER" />
+		<result property="userId" column="user_id" jdbcType="INTEGER" />
+		<result property="tsp" column="tsp" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="getRefByEntity" resultMap="baseResult"
+		parameterType="com.wk.dz.entity.ActRef">
+		select
+		id,content_id,content_opt_id,user_id,tsp
+		from act_user
+		<where>
+			<if test=""></if>
+		</where>
+		where name = #{name} 
+	</select>
+
+	<select id="getUserById" resultMap="crmUserResult"
+		parameterType="java.lang.Integer">
+		select
+		id,name,phone,real_name,sex,tsp
+		from act_user
+		where id = #{id} 
+	</select>
+	
+	<insert id="insertUser" parameterType="com.wk.dz.entity.ActUser"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		act_user(id,name,phone,real_name,sex,tsp)
+		values(#{id},#{name},#{phone},#{realName},#{sex},#{tsp})
+
+	</insert>
+	
+</mapper>
